@@ -1,0 +1,168 @@
+import java.util.Scanner;
+import java.util.Random;
+import javax.swing.JOptionPane;
+//----------------------Super class-----------------------------
+
+public class RandomNumber {
+	 public int randNum;
+	  	
+	 public RandomNumber(int rand)
+	 {randNum=rand;}
+		
+	 public RandomNumber()
+	  {
+	      Random generator = new Random();
+	      randNum = generator.nextInt(3)+1;	    
+	  }
+	 
+		      
+	  public int getRandomNumber(){
+	   
+	      return randNum;		  
+	  }
+	  	  	 
+	   public void displayRandomNumber(){
+	  System.out.printf("Random number here \n%d\n ",getRandomNumber());	  
+	  }
+	   
+	   public void showInput()
+	   {
+		   //JOptionPane.showInputDialog("Enter your play; 'R' or 'P' or 'S': ");
+		   System.out.println("Enter your play; 'R' or 'P' or 'S': ");
+	   }
+	   
+	   public void showMessage(String str)
+	   {
+		   //JOptionPane.showMessageDialog(null, Name5);
+		   System.out.println(str);
+	   }}
+//================================================
+
+import java.util.Scanner;
+import java.util.Random;
+import java.lang.Override;
+import javax.swing.JOptionPane;
+//----------------Extended Class------------------
+
+public class BaseRandomNumber extends RandomNumber 
+{
+	public String NameStr="";
+	//constructor initializes RandomNumber	 
+		
+	 public BaseRandomNumber()
+	 {
+			super();		
+	 }
+	 	 
+	 @Override
+	 public void displayRandomNumber()
+	 {		 
+		 JOptionPane.showMessageDialog(null,randNum); 		  
+	 }	 
+	 
+	 @Override
+	 public void showInput()
+	   {
+		 NameStr=JOptionPane.showInputDialog("Enter your play; 'R' or 'P' or 'S': ");		   
+	   }
+	 
+	 @Override
+	 public void showMessage(String str)
+	   {
+		   JOptionPane.showMessageDialog(null, str);		  
+	   }
+}
+//================================================
+import java.util.Scanner;
+import java.util.Random;
+import java.lang.Override;
+import javax.swing.JOptionPane;
+//-------------------Test Class-------------------
+
+public class MainTestClass {
+
+	public static void main(String[] args) {
+		
+		int RandomNumInt;
+		BaseRandomNumber myRandNum=new BaseRandomNumber();
+		RandomNumInt=myRandNum.getRandomNumber();
+		//myRandNum.displayRandomNumber();
+		
+		String PlayOfUser; //Computer and User's play -- "R", "P", or "S"
+		String PlayOfComputer = "";		
+		int ask, counter=1;	       
+
+		if (RandomNumInt == 1)
+			PlayOfComputer = "R";
+		else if (RandomNumInt == 2)
+			PlayOfComputer = "P";
+		else if (RandomNumInt == 3)
+			PlayOfComputer = "S";
+			
+	    while(counter>0){
+		
+	    myRandNum.showInput();	
+		String Mess2= String.format("%s: ",myRandNum.NameStr);
+		
+		PlayOfUser=myRandNum.NameStr;
+		PlayOfUser = PlayOfUser.toUpperCase();
+
+		String Name5="CONGRATULATION! It's a tie!";
+		String Name6="Rock crushes scissors. You win!";
+		String Name7="Paper eats rock. You lose!";
+	    String Name8="Entered play wrong! Only enter 'R' or 'P' or 'S' ";
+
+		//Print out who won
+	        if (PlayOfUser.equals("R") || PlayOfUser.equals("P") || PlayOfUser.equals("S") )
+	        {
+	            if (PlayOfComputer.equals(PlayOfUser))	                    
+	            	myRandNum.showMessage(Name5);
+
+	            if (PlayOfUser.equals("R"))
+	                    if (PlayOfComputer.equals("S"))	                            
+	                    	myRandNum.showMessage(Name6);
+	            else if (PlayOfComputer.equals("P"))	                    
+	            		myRandNum.showMessage(Name7);
+
+
+	            if (PlayOfUser.equals("P"))
+	                    if (PlayOfComputer.equals("S"))	                            
+	                    	myRandNum.showMessage(Name7);
+	            else if (PlayOfComputer.equals("R"))	                           
+	            		myRandNum.showMessage(Name6);
+
+
+	            if (PlayOfUser.equals("S"))
+	                    if (PlayOfComputer.equals("P"))	                            
+	                    	myRandNum.showMessage(Name6);
+	            else if (PlayOfComputer.equals("R"))	                    
+	            		myRandNum.showMessage(Name7);
+
+	            counter++;
+
+	            //Ask after each round
+	            String Name3 = JOptionPane.showInputDialog("Do you want to play more? Typing any key to continue. Typing the key 'N' to stop: ");
+	            Name3 = Name3.toUpperCase();
+	            String Mess3= String.format("%s ",Name3);	           
+	            
+	            if (Name3.equals("N"))
+	                    break;
+	            else
+	            {
+	                    //Randomly generated number used to determine computer's play
+	                    Random generator2 = new Random();
+	                    RandomNumInt = generator2.nextInt(3)+1;
+	                    if (RandomNumInt == 1)
+	                            PlayOfComputer = "R";
+	                    else if (RandomNumInt == 2)
+	                            PlayOfComputer = "P";
+	                    else if (RandomNumInt == 3)
+	                            PlayOfComputer = "S";
+	            }
+	        }
+	          // 'ELSE' of Print out who won
+	          else	            
+	        	  myRandNum.showMessage(Name8);
+	        }
+	}}
+
